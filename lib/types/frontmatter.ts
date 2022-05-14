@@ -1,7 +1,7 @@
 /**
- * FrontMatter
+ * Frontmatter
  */
-export type FrontMatter = {
+export type Frontmatter = {
   id: string
   title: string
   date: string
