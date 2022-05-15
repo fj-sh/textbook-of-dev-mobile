@@ -41,7 +41,7 @@ const Post: NextPage<PostProps> = ({ fullContentPost }: PostProps) => {
       <div className="container">
         <div className="">
           <h1 className="">{fullContentPost.frontMatter.title}</h1>
-          <div className="SmallDateTime">
+          <div className="smallDateTime">
             {getSlashSeparatedDate(fullContentPost.frontMatter.date)}に公開
           </div>
           <div className="flexbox">
@@ -97,7 +97,7 @@ const Post: NextPage<PostProps> = ({ fullContentPost }: PostProps) => {
             border-radius: 12px;
             box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
           }
-          .SmallDateTime {
+          .smallDateTime {
             display: none;
           }
         }
@@ -107,7 +107,7 @@ const Post: NextPage<PostProps> = ({ fullContentPost }: PostProps) => {
           .side {
             display: none;
           }
-          .SmallDateTime {
+          .smallDateTime {
             display: block;
             color: var(--c-gray-darker);
             text-align: center;

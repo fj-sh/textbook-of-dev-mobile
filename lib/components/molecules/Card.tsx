@@ -26,7 +26,7 @@ const Card = ({ title, image, link }: CardProps) => {
           box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         }
         .card:hover {
-          box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+          box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
         }
         .card-img {
           border-radius: 12px 12px 0 0;

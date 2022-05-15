@@ -20,26 +20,27 @@ const Home: NextPage<HomeProps> = ({ frontmatters }: HomeProps) => {
         <title>{SITE_TITLE}</title>
       </Head>
       <div className="container">
-        {frontmatters.map((frontmatter) => (
-          <Card
-            title={frontmatter.title}
-            image={frontmatter.eyeCatch}
-            link={frontmatter.id}
-            key={frontmatter.id}
-          />
-        ))}
+        <div className="itemList">
+          {frontmatters.map((frontmatter) => (
+            <Card
+              title={frontmatter.title}
+              image={frontmatter.eyeCatch}
+              link={frontmatter.id}
+              key={frontmatter.id}
+            />
+          ))}
+        </div>
       </div>
       <style jsx>{`
-        .container {
-        }
-        .item {
-          height: 300px;
-          width: 300px;
-          background: red;
-          grid-row-start: 1;
-          grid-row-end: 2;
-          grid-column-start: 1;
-          grid-column-end: 3;
+        @media screen and (min-width: 769px) {
+          .container {
+            width: 800px;
+            margin: 0 auto;
+          }
+          .itemList {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+          }
         }
       `}</style>
     </>
