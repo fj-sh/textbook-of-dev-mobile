@@ -9,3 +9,4 @@ export const FRONTMATTER_JSON = `./${STORE_DIR}/frontmatter.json`
 export const ID_AND_PATHS_JSON = `./${STORE_DIR}/idAndPaths.json`
 
 export const SITEMAP_XML = `./public/sitemap.xml`
+export const EYECATCH_DIR = `./public/eyecatches`

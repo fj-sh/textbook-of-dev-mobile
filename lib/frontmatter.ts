@@ -2,7 +2,7 @@ import { getAllFilesFullPath, getId } from './paths'
 import { Frontmatter } from './types/frontmatter'
 import matter from 'gray-matter'
 import fs from 'fs'
-import { FRONTMATTER_JSON, STORE_DIR } from './constants'
+import { EYECATCH_DIR, FRONTMATTER_JSON, STORE_DIR } from './constants'
 
 /**
  * フルパスから Frontmatter を取得する。
@@ -12,22 +12,24 @@ import { FRONTMATTER_JSON, STORE_DIR } from './constants'
 export function getFrontmatter(fullPathToFile: string): Frontmatter {
   const fileContents = fs.readFileSync(fullPathToFile, 'utf8')
   const id = getId(fullPathToFile)
+  console.log('matter(fileContents).data.eyeCatch', matter(fileContents).data.eyeCatch)
   return {
     id,
     title: matter(fileContents).data.title ?? '',
     date: matter(fileContents).data.date ?? '',
     tags: matter(fileContents).data.tags ?? '',
     description: matter(fileContents).data.description ?? '',
-    eyeCatch: matter(fileContents).data.eyeCatch ?? '',
+    eyeCatch:
+      matter(fileContents).data.eyeCatch === ''
+        ? getRandomEyeCatch()
+        : matter(fileContents).data.eyeCatch,
     published: matter(fileContents).data.published ?? false,
     lastUpdated: matter(fileContents).data.lastUpdated ?? '',
   }
 }
 
 export function loadFrontmatters() {
-  if (fs.existsSync(FRONTMATTER_JSON)) {
-    const data = fs.readFileSync(`${FRONTMATTER_JSON}`)
-  } else {
+  if (!fs.existsSync(FRONTMATTER_JSON)) {
     throw new Error(
       `${FRONTMATTER_JSON}が保存されていません。ビルド時間を短縮するために、まずはAPIから${FRONTMATTER_JSON}の保存を行ってください。`
     )
@@ -63,3 +65,10 @@ export function saveFrontmatters() {
  * データベースに Frontmatter を保存する。
  */
 export function insertFrontmatter() {}
+
+export function getRandomEyeCatch() {
+  const files = fs.readdirSync(EYECATCH_DIR)
+  const fileName = files[Math.floor(Math.random() * files.length)]
+  console.log(`eyecatches/${fileName}`)
+  return `eyecatches/${fileName}`
+}
