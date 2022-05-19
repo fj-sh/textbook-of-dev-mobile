@@ -52,7 +52,10 @@ const Post: NextPage<PostProps> = ({ fullContentPost }: PostProps) => {
             </div>
             <div className="side">
               <div className="datetime">
-                <PublishDateSideBar frontmatter={fullContentPost.frontMatter} />
+                <PublishDateSideBar
+                  frontmatter={fullContentPost.frontMatter}
+                  contentLength={fullContentPost.contentLength}
+                />
               </div>
             </div>
           </div>

@@ -1,12 +1,14 @@
 import React from 'react'
 import { Frontmatter } from '../../types/frontmatter'
 import { getIso8601, getYYYYMMDD } from '../../utils/date'
+import { convertNumberToStringWithRoundedComma } from '../../utils/numeral'
 
 interface DateProps {
   frontmatter: Frontmatter
+  contentLength: number
 }
 
-const PublishDateSideBar = ({ frontmatter }: DateProps) => {
+const PublishDateSideBar = ({ frontmatter, contentLength }: DateProps) => {
   return (
     <>
       <div className="Conainer">
@@ -35,6 +37,18 @@ const PublishDateSideBar = ({ frontmatter }: DateProps) => {
               >
                 {frontmatter.lastUpdated ? getYYYYMMDD(frontmatter.lastUpdated) : <>更新なし</>}
               </time>
+            </span>
+          </dd>
+        </dl>
+        <hr />
+        <dl className="DefinitionList_dl">
+          <dt className="DefinitionList_dt">
+            <span>文章量</span>
+          </dt>
+          <dd className="DefinitionList_dd">
+            <span>
+              約{convertNumberToStringWithRoundedComma(contentLength)}
+              文字
             </span>
           </dd>
         </dl>

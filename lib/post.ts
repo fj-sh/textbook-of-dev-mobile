@@ -8,9 +8,19 @@ import { serialize } from 'next-mdx-remote/serialize'
 import matter from 'gray-matter'
 import { getAllPostIds, getFullPathById } from './paths'
 
-async function getPostMdx(fullPathToFile: string): Promise<MDXRemoteSerializeResult> {
+type PostMdxResult = {
+  mdxSource: MDXRemoteSerializeResult
+  contentLength: number
+}
+
+async function getPostMdx(fullPathToFile: string): Promise<PostMdxResult> {
   const fileContents = fs.readFileSync(fullPathToFile, 'utf8')
-  return await serialize(matter(fileContents).content)
+  const mdxSource = await serialize(matter(fileContents).content)
+  const contentLength = matter(fileContents).content.length
+  return {
+    mdxSource,
+    contentLength,
+  }
 }
 
 // IDとパスをキャッシュする。
@@ -36,11 +46,12 @@ export async function getFullContentById(id: string): Promise<FullContentPost> {
     throw new Error(`${id}のパス情報が存在しません。`)
   const fullPathToFile = targetIdAndPath[0].path
   const frontMatter = getFrontmatter(fullPathToFile)
-  const mdxSource = await getPostMdx(fullPathToFile)
+  const { mdxSource, contentLength } = await getPostMdx(fullPathToFile)
   return {
     id,
     frontMatter,
     mdxSource,
+    contentLength,
   }
 }
 

@@ -18,3 +18,20 @@ lastUpdated: ''
 ### 見出し3
 
 っげりしｓかおｃｄ
+
+I used the idea from Kerry's answer, but simplified it since I was just looking for something simple for my specific purpose. Here is what I have:
+
+```
+function numberWithCommas(x) {
+return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+```
+Show code snippet
+
+The regex uses 2 lookahead assertions:
+
+a positive one to look for any point in the string that has a multiple of 3 digits in a row after it,
+a negative assertion to make sure that point only has exactly a multiple of 3 digits. The replacement expression puts a comma there.
+For example, if you pass it 123456789.01, the positive assertion will match every spot to the left of the 7 (since 789 is a multiple of 3 digits, 678 is a multiple of 3 digits, 567, etc.). The negative assertion checks that the multiple of 3 digits does not have any digits after it. 789 has a period after it so it is exactly a multiple of 3 digits, so a comma goes there. 678 is a multiple of 3 digits but it has a 9 after it, so those 3 digits are part of a group of 4, and a comma does not go there. Similarly for 567. 456789 is 6 digits, which is a multiple of 3, so a comma goes before that. 345678 is a multiple of 3, but it has a 9 after it, so no comma goes there. And so on. The \B keeps the regex from putting a comma at the beginning of the string.
+
+@neu-rah mentioned that this function adds commas in undesirable places if there are more than 3 digits after the decimal point. If this is a problem, you can use this function:

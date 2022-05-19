@@ -5,6 +5,7 @@ export type FullContentPost = {
   id: string
   frontMatter: Frontmatter
   mdxSource: MDXRemoteSerializeResult
+  contentLength: number
 }
 
 export type IdAndPath = {
